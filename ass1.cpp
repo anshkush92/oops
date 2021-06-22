@@ -6,93 +6,263 @@ using namespace std;
 const ll p = 31;
 const ll mod = 1e9 + 9;
 
+// decoration
+// afterchoosing decoration
+// mainmenu
+// inside
+// mainmenuadmin
+// admin
+// checkdetails
+// generateidpass
+
 string name, age, gender, address, phno, temp, purpose, entime, extime, male = "male", female = "female";
 string username, password;
 
+// =======================================================================================================================================
+
 class decoration
 {
-    public:
-
+public:
     void decor()
     {
-        cout<<"\t\t\t\t\t\t*******************************************************************\n";
-        cout<<"\t\t\t\t\t\t*                                                                 *\n";
-        cout<<"\t\t\t\t\t\t*                 Entry/ Exit Management System                   *\n";
-        cout<<"\t\t\t\t\t\t*                                                                 *\n";
-        cout<<"\t\t\t\t\t\t*******************************************************************\n";
+        cout << "\t\t\t\t\t\t*******************************************************************\n";
+        cout << "\t\t\t\t\t\t*                                                                 *\n";
+        cout << "\t\t\t\t\t\t*                 Entry/ Exit Management System                   *\n";
+        cout << "\t\t\t\t\t\t*                                                                 *\n";
+        cout << "\t\t\t\t\t\t*******************************************************************\n";
     }
 };
+
+// =======================================================================================================================================
 
 class afterchoosing
 {
-    public:
-
+public:
     void decor(string str)
     {
-        cout<<"\t\t\t\t\t\t*******************************************************************\n";
-        cout<<"\t\t\t\t\t\t*                          "<<str<<"                         *\n";
-        cout<<"\t\t\t\t\t\t*******************************************************************\n";
+        cout << "\t\t\t\t\t\t*******************************************************************\n";
+        cout << "\t\t\t\t\t\t*                          " << str << "                         *\n";
+        cout << "\t\t\t\t\t\t*******************************************************************\n";
     }
 };
 
+// =======================================================================================================================================
+
 class mainmenu
 {
-    public:
+public:
     int choice;
 
     int menu()
     {
-        cout<<"\t\t\t\t\t\t\t\t\tSelect who are you ?\n";
-        cout<<"\t\t\t\t\t\t\t\t\t1. Admin\n";
-        cout<<"\t\t\t\t\t\t\t\t\t2. Inside IIITM\n";
-        cout<<"\t\t\t\t\t\t\t\t\t3. Outside IIITM\n";
-        cin>>choice;
+        cout << "\t\t\t\t\t\t\t\t\tSelect who are you ?\n";
+        cout << "\t\t\t\t\t\t\t\t\t1. Admin\n";
+        cout << "\t\t\t\t\t\t\t\t\t2. Inside IIITM\n";
+        cout << "\t\t\t\t\t\t\t\t\t3. Outside IIITM\n";
+        cin >> choice;
 
         return choice;
     }
 };
 
+// =======================================================================================================================================
+
+class inside // person who are member of IIITM
+{
+public:
+    // Username is made using first name and the first 2 letters of the numbers
+    // Password made using name + age + phno first 2 digits
+
+    inside()
+    {
+        name = "";
+        age = "";
+        gender = "";
+        address = "";
+        phno = "";
+        temp = "";
+        purpose = "";
+        entime = "";
+        extime = "";
+    }
+
+    void entry() // For inputting the details of the person
+    {
+        // Learnt a lot about the cin and getline error
+        // http://www.math.uaa.alaska.edu/~afkjm/csce211/handouts/ReadingLineOfText.pdf
+        // https://mathbits.com/MathBits/CompSci/APstrings/APgetline.htm
+
+        cout << "Enter your name : ";
+        getline(cin, name);
+
+        cout << "Enter your age : ";
+        getline(cin, age);
+
+        cout << "Enter your Gender : ";
+        getline(cin, gender);
+
+        cout << "Enter your Address : ";
+        getline(cin, address);
+
+        cout << "Enter your phone number : ";
+        getline(cin, phno);
+
+        cout << "Enter your temperature in Fahrenheit : ";
+        getline(cin, temp);
+
+        cout << "Enter your purpose of activity : ";
+        getline(cin, purpose);
+
+        cout << "Enter check - in time : ";
+        getline(cin, entime);
+
+        cout << "Enter exit time : ";
+        getline(cin, extime);
+    }
+};
+
+// =======================================================================================================================================
+
+class displaydetails
+{
+public:
+    void display() // For outputing the details of the person
+    {
+        cout << "Name\t\tAge\t\tGender\t\tAddress\t\tPhone Number\t\tTemperature\t\tPurpose\t\tEntry Time\t\tExit Time\n";
+        cout << name << "\t" << age << "\t\t" << gender << "\t\t" << address << "\t" << phno << "\t" << temp << "\t\t" << purpose << "\t" << entime << "\t" << extime << "\n";
+    }
+};
+
+// =======================================================================================================================================
+
+class mainmenuadmin
+{
+public:
+    int choice;
+
+    int menu()
+    {
+        cout << "\t\t\t\t\t\t\t\t\tSelect who are you ?\n";
+        cout << "\t\t\t\t\t\t\t\t\t1. Inside IIITM\n";
+        cout << "\t\t\t\t\t\t\t\t\t2. Outside IIITM\n";
+
+        cin >> choice;
+        return choice;
+    }
+};
+
+// =======================================================================================================================================
+
 class admin // admin who can change the details of the person
 {
-    public:
+public:
     string adminid = "admin", adminpass = "admin", passadmin, idadmin, ans;
     afterchoosing obj;
 
-    void adminchecker() // function to check whether he is admin or not
+    bool adminchecker() // function to check whether he is admin or not
     {
-        start:
-        cout<<"ID: ";
+    start:
+        cout << "ID: ";
         getline(cin, idadmin);
-        cout<<"PASSWORD: ";
+        cout << "PASSWORD: ";
         getline(cin, passadmin);
 
-        if(adminid != idadmin || passadmin != adminpass)
+        if (adminid != idadmin || passadmin != adminpass)
         {
-            cout<<"Wrong ID or PASSWORD\n";
-            cout<<"Want to try again(Yes/No) ?\n";
-            cin>>ans;
+            cout << "Wrong ID or PASSWORD\n";
+            cout << "Want to try again(Yes/No) ?\n";
+            cin >> ans;
 
-            if(ans == "Yes")
+            if (ans == "Yes")
             {
                 cin.ignore();
                 goto start;
             }
 
             else
-            obj.decor("Access Denied");
+            {
+                obj.decor("Access Denied");
+                return false;
+            }
         }
 
         else
         {
             obj.decor("Access Granted");
+            return true;
         }
-        
+    }
+
+    void adminfunctionsdis()
+    {
+        int choice, ch;
+        mainmenuadmin obj;
+        inside inside1;
+        displaydetails details1; // mainmenu class object declaration
+
+        cout << "\t\t\t\t\t\t1. Add a new Entry\n";
+        cout << "\t\t\t\t\t\t2. Delete a Entry\n";
+        cout << "\t\t\t\t\t\t3. Modify a Entry\n";
+        cout << "\t\t\t\t\t\t4. Display All Entries\n";
+        cout << "\t\t\t\t\t\t5. Exit Admin\n";
+        cout << "\t\t\t\t\t\t6. Exit program\n";
+
+        cin >> ch;
+
+        switch (ch)
+        {
+        case 1:
+            choice = obj.menu();
+            cin.ignore();
+
+            if (choice == 1)
+            {
+                cout << "Chosen Inside IIITM\n";
+                
+                inside1.entry();
+                
+                details1.display();
+            }
+
+            else if (choice == 2)
+                cout << "Chosen Outisde IIITM\n";
+
+            else
+                cout << "Invalid Choice\n";
+
+            break;
+
+        case 2:
+            cout << "Working on it\n";
+            break;
+
+        case 3:
+            cout << "Working on it\n";
+            break;
+
+        case 4:
+            cout << "Working on it\n";
+            break;
+
+        case 5:
+            cout << "Exiting the Admin\n";
+            return;
+
+        case 6:
+            cout << "Exiting the program\n";
+            exit(0);
+
+        default:
+            cout << "Wrong Entry, Please Enter Again !!\n";
+        }
     }
 };
 
+// =======================================================================================================================================
+
 class checkdetails
 {
-    public:
+public:
     bool check() // For checking if the details entereed are correct or not
     {
         int i;
@@ -191,9 +361,11 @@ class checkdetails
     }
 };
 
+// =======================================================================================================================================
+
 class generateidpass
 {
-    public:
+public:
     void generate() // For generating username and password for checking his details
     {
         ll p_pow = 1, i;
@@ -201,78 +373,16 @@ class generateidpass
         for (i = 0; i < name.size(); i++)
         {
             if (name[i] == ' ')
-            break;
+                break;
         }
 
         username += name.substr(0, i) + phno.substr(0, 2);
-        password += name.substr(0, i) + name.substr(i+1, name.size()) + age + phno.substr(0, 2);
+        password += name.substr(0, i) + name.substr(i + 1, name.size()) + age + phno.substr(0, 2);
         cout << "Username : " << username << " password : " << password << "\n";
     }
 };
 
-class displaydetails
-{
-    public:
-    void display() // For outputing the details of the person
-    {
-        cout << "Name\t\tAge\t\tGender\t\tAddress\t\tPhone Number\t\tTemperature\t\tPurpose\t\tEntry Time\t\tExit Time\n";
-        cout << name << "\t" << age << "\t\t" << gender << "\t\t" << address << "\t" << phno << "\t" << temp << "\t\t" << purpose << "\t" << entime << "\t" << extime << "\n";
-    }
-};
-
-class inside // person who are member of IIITM
-{
-public:
-    // Username is made using first name and the first 2 letters of the numbers
-    // Password made using name + age + phno first 2 digits
-
-    inside()
-    {
-        name = "";
-        age = "";
-        gender = "";
-        address = "";
-        phno = "";
-        temp = "";
-        purpose = "";
-        entime = "";
-        extime = "";
-    }
-
-    void entry() // For inputting the details of the person
-    {
-        // Learnt a lot about the cin and getline error
-        // http://www.math.uaa.alaska.edu/~afkjm/csce211/handouts/ReadingLineOfText.pdf
-        // https://mathbits.com/MathBits/CompSci/APstrings/APgetline.htm
-
-        cout << "Enter your name : ";
-        getline(cin, name);
-
-        cout << "Enter your age : ";
-        getline(cin, age);
-
-        cout << "Enter your Gender : ";
-        getline(cin, gender);
-
-        cout << "Enter your Address : ";
-        getline(cin, address);
-
-        cout << "Enter your phone number : ";
-        getline(cin, phno);
-
-        cout << "Enter your temperature in Fahrenheit : ";
-        getline(cin, temp);
-
-        cout << "Enter your purpose of activity : ";
-        getline(cin, purpose);
-
-        cout << "Enter check - in time : ";
-        getline(cin, entime);
-
-        cout << "Enter exit time : ";
-        getline(cin, extime);
-    }
-};
+// =======================================================================================================================================
 
 int main()
 {
@@ -287,61 +397,59 @@ int main()
     checkdetails check1;
     displaydetails detail1;
     generateidpass generate1;
-    
 
     // Decoration + Mainmenu Part
     dec.decor();
     choice = menu1.menu();
 
-    system("CLS"); // command to clear the screen 
+    system("CLS"); // command to clear the screen
 
-    if(choice == 1)
+    if (choice == 1)
     {
         cin.ignore(); // IMP Don't remove refer void entry article for more info
-        cout<<"Chosen Admin\n";
-        admin1.adminchecker();
+        cout << "Chosen Admin\n";
+        if (admin1.adminchecker())
+            admin1.adminfunctionsdis();
     }
 
-    else if(choice == 2)
+    else if (choice == 2)
     {
+        cout << "Chosen Inside IIITM\n";
+        start:
         cin.ignore(); // IMP Don't remove refer void entry article for more info
-        cout<<"Chosen Inside IIITM\n";
-    }
 
-    else if(choice == 3)
-    {
-        cin.ignore(); // IMP Don't remove refer void entry article for more info
-        cout<<"Outside IIITM\n";
-    }
+        inside1.entry();
+        detail1.display();
 
-start:
-
-    inside1.entry();
-    detail1.display();
-
-    if (check1.check())
-        generate1.generate();
-    else
-    {
-        cout << "Want to enter new entry (Yes/No) ?\n";
-        cin >> ans;
-
-        if (ans == "Yes")
-            goto start;
+        if (check1.check())
+            generate1.generate();
         else
-            cout << "Exiting\n";
+        {
+            cout << "Want to modify previous entry (Yes/No) ?\n";
+            cin >> ans;
+
+            if (ans == "Yes")
+                goto start;
+            else
+                cout << "Exiting\n";
+        }
+
+        cout<<"Want to enter more entry (Yes/No) ?\n";
+        cin>>ans;
+
+        if(ans == "Yes")
+        goto start;
+        else
+        cout<<"Exiting\n";
+    }
+
+    else if (choice == 3)
+    {
+        cin.ignore(); // IMP Don't remove refer void entry article for more info
+        cout << "Outside IIITM\n";
     }
 
     return 0;
 }
 
-/*
-Ansh Singh
-19
-Male 
-E-1778 
-9794925108
-98.6 F
-Nothing
-10:30 AM
-10:30 PM */
+// =======================================================================================================================================
