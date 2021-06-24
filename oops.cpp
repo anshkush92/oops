@@ -1,4 +1,7 @@
 #include <bits/stdc++.h>
+#include <windows.h>
+#include <direct.h>
+#include <conio.h>
 using namespace std;
 
 #define ll long long int
@@ -124,27 +127,26 @@ public:
     {
         // file pointer
         fstream fout;
-    
+
         // opens an existing csv file or creates a new file.
         fout.open("record.csv", ios::out | ios::app);
 
-        fout<<name<<","<<age<<","<<gender<<","<<address<<","<<phno<<","<<temp<<","<<purpose<<","<<entime<<","<<extime<<"\n";
-  
+        fout << name << "," << age << "," << gender << "," << address << "," << phno << "," << temp << "," << purpose << "," << entime << "," << extime << "\n";
     }
 
     void file_delete()
     {
         // Open FIle pointers
         fstream fin, fout;
-  
+
         // Open the existing file
         fin.open("record.csv", ios::in);
-    
+
         // Create a new file to store the non-deleted data
         fout.open("recordnew.csv", ios::out);
 
         int marks, count = 0, i;
-        string dname,name1;
+        string dname, name1;
         char sub;
         int index, new_marks;
 
@@ -152,41 +154,41 @@ public:
         vector<string> row;
 
         cout << "Enter the name of the record to be deleted: ";
-        cin>>dname;
+        cin >> dname;
 
         // Check if this record exists
         // If exists, leave it and
         // add all other data to the new file
-        while (!fin.eof()) 
+        while (!fin.eof())
         {
             row.clear();
             getline(fin, line);
             stringstream s(line);
-    
-            while (getline(s, word, ',')) 
+
+            while (getline(s, word, ','))
             {
                 row.push_back(word);
             }
-    
+
             int row_size = row.size();
             name1 = row[0];
-    
+
             // writing all records,
             // except the record to be deleted,
             // into the new file 'recordnew.csv'
             // using fout pointer
-            if (name1 != dname) 
+            if (name1 != dname)
             {
-                if (!fin.eof()) 
+                if (!fin.eof())
                 {
-                    for (i = 0; i < row_size - 1; i++) 
+                    for (i = 0; i < row_size - 1; i++)
                     {
                         fout << row[i] << ", ";
                     }
                     fout << row[row_size - 1] << "\n";
                 }
             }
-            else 
+            else
             {
                 count = 1;
             }
@@ -197,14 +199,14 @@ public:
             cout << "Record deleted\n";
         else
             cout << "Record not found\n";
-    
+
         // Close the pointers
         fin.close();
         fout.close();
-    
+
         // removing the existing file
         remove("record.csv");
-    
+
         // renaming the new file with the existing file name
         rename("recordnew.csv", "record.csv");
     }
@@ -213,10 +215,10 @@ public:
     {
         // File pointer
         fstream fin;
-    
+
         // Open an existing file
         fin.open("record.csv", ios::in);
-    
+
         string oname;
         string oage;
         string ogender;
@@ -226,27 +228,25 @@ public:
         string opurp;
         string oentm;
         string oextm;
-        
 
         cout << "Name\t\tAge\t\tGender\t\tAddress\t\tPhone Number\t\tTemperature\t\tPurpose\t\tEntry Time\t\tExit Time\n";
-        cout<<"---------------------------------------------------------------------------------------------------------------------------------------------------------------------"; 
-    
-        while(!fin.eof())
+        cout << "---------------------------------------------------------------------------------------------------------------------------------------------------------------------";
+
+        while (!fin.eof())
         {
-            getline(fin,oname,',');
-            getline(fin,oage,',');
-            getline(fin,ogender,',');
-            getline(fin,oaddress,',');
-            getline(fin,ophno,',');
-            getline(fin,otemp,',');
-            getline(fin,opurp,',');
-            getline(fin,oentm,',');
-            getline(fin,oextm,'\n');
+            getline(fin, oname, ',');
+            getline(fin, oage, ',');
+            getline(fin, ogender, ',');
+            getline(fin, oaddress, ',');
+            getline(fin, ophno, ',');
+            getline(fin, otemp, ',');
+            getline(fin, opurp, ',');
+            getline(fin, oentm, ',');
+            getline(fin, oextm, '\n');
 
-
-            cout<<"\n";
+            cout << "\n";
             cout << oname << "\t" << oage << "\t\t" << ogender << "\t\t" << oaddress << "\t" << ophno << "\t" << otemp << "\t\t" << opurp << "\t" << oentm << "\t" << oextm << "\n";
-            cout<<"---------------------------------------------------------------------------------------------------------------------------------------------------------------------"; 
+            cout << "---------------------------------------------------------------------------------------------------------------------------------------------------------------------";
         }
         fin.close();
     }
@@ -255,34 +255,34 @@ public:
     {
         // File pointer
         fstream fin, fout;
-    
+
         // Open an existing record
         fin.open("record.csv", ios::in);
-    
+
         // Create a new file to store updated data
         fout.open("recordnew.csv", ios::out);
-    
+
         string mname, mname1;
         int count = 0, i;
         int sub;
         int index;
         string line, word;
         vector<string> row;
-    
+
         // Get the roll number from the user
         cout << "Enter the name of the record to be updated: ";
         cin >> mname;
-    
+
         // Get the data to be updated
         cout << "Enter the field number to be updated [name(1),age(2),gender(3),address(4),phone_no(5),temperature(6),purpose(7),entry_time(8),exit_time(9)]: ";
         cin >> sub;
 
-        index=sub-1;
-    
-        
-        if (sub>=1 && sub<=9)
-        {}
-        else 
+        index = sub - 1;
+
+        if (sub >= 1 && sub <= 9)
+        {
+        }
+        else
         {
             cout << "Wrong choice.Enter again\n";
             file_modify();
@@ -290,51 +290,53 @@ public:
 
         string mentry;
 
-        cout<<"Enter the updated entry: ";
-        cin>>mentry;
-    
+        cout << "Enter the updated entry: ";
+        cin >> mentry;
+
         // Traverse the file
-        while (!fin.eof()) 
+        while (!fin.eof())
         {
-    
+
             row.clear();
-    
+
             getline(fin, line);
             stringstream s(line);
-    
-            while (getline(s, word, ',')) 
+
+            while (getline(s, word, ','))
             {
                 row.push_back(word);
             }
-    
+
             mname1 = row[0];
             int row_size = row.size();
-    
-            if (mname1.compare(mname)==0) 
+
+            if (mname1.compare(mname) == 0)
             {
                 count = 1;
                 stringstream convert;
 
                 convert << mentry;
-    
+
                 row[index] = mentry;
-    
-                if (!fin.eof()) 
+
+                if (!fin.eof())
                 {
-                    for (i = 0; i < row_size - 1; i++) 
+                    for (i = 0; i < row_size - 1; i++)
                     {
 
                         fout << row[i] << ", ";
                     }
-    
+
                     fout << row[row_size - 1] << "\n";
                 }
             }
-            else {
-                if (!fin.eof()) {
-                    for (i = 0; i < row_size - 1; i++) 
+            else
+            {
+                if (!fin.eof())
+                {
+                    for (i = 0; i < row_size - 1; i++)
                     {
-    
+
                         fout << row[i] << ", ";
                     }
                     fout << row[row_size - 1] << "\n";
@@ -346,17 +348,17 @@ public:
         if (count == 0)
             cout << "Record not found\n";
         else
-            cout<<"Record updated";
-    
+            cout << "Record updated";
+
         fin.close();
         fout.close();
-    
+
         // removing the existing file
         remove("record.csv");
-    
+
         // renaming the updated file with the existing file name
         rename("recordnew.csv", "record.csv");
-        }
+    }
 };
 
 // =======================================================================================================================================
@@ -437,61 +439,71 @@ public:
         mainmenuadmin obj;
         inside inside1;
         displaydetails details1; // mainmenu class object declaration
+        system("cls");
 
-        cout << "\t\t\t\t\t\t1. Add a new Entry\n";
-        cout << "\t\t\t\t\t\t2. Delete a Entry\n";
-        cout << "\t\t\t\t\t\t3. Modify a Entry\n";
-        cout << "\t\t\t\t\t\t4. Display All Entries\n";
-        cout << "\t\t\t\t\t\t5. Exit Admin\n";
-        cout << "\t\t\t\t\t\t6. Exit program\n";
-
-        cin >> ch;
-
-        switch (ch)
+        while (true)
         {
-        case 1:
-            choice = obj.menu();
-            cin.ignore();
+            afterchoosing choicech;
+            choicech.decor("Admin Functions");
+            cout << "\t\t\t\t\t\t1. Add a new Entry\n";
+            cout << "\t\t\t\t\t\t2. Delete a Entry\n";
+            cout << "\t\t\t\t\t\t3. Modify a Entry\n";
+            cout << "\t\t\t\t\t\t4. Display All Entries\n";
+            cout << "\t\t\t\t\t\t5. Exit Admin\n";
+            cout << "\t\t\t\t\t\t6. Exit program\n";
 
-            if (choice == 1)
+            cin >> ch;
+
+            switch (ch)
             {
-                cout << "Chosen Inside IIITM\n";
+                case 1:
+                choice = obj.menu();
+                cin.ignore();
 
-                inside1.entry();
-                inside1.file_entry();
-                details1.display();
+                if (choice == 1)
+                {
+                    cout << "Chosen Inside IIITM\n";
+
+                    inside1.entry();
+                    inside1.file_entry();
+                    details1.display();
+                }
+
+                else if (choice == 2)
+                    cout << "Chosen Outisde IIITM\n";
+
+                else
+                    cout << "Invalid Choice\n";
+
+                break;
+
+                case 2:
+                    inside1.file_delete();
+                    break;
+
+                case 3:
+                    inside1.file_modify();
+                    break;
+
+                case 4:
+                    inside1.file_display();
+                    break;
+
+                case 5:
+                    cout << "Exiting the Admin\n";
+                    return;
+
+                case 6:
+                    cout << "Exiting the program\n";
+                    exit(0);
+
+                default:
+                    cout << "Wrong Entry, Please Enter Again !!\n";
             }
 
-            else if (choice == 2)
-                cout << "Chosen Outisde IIITM\n";
+            Sleep(2000);
 
-            else
-                cout << "Invalid Choice\n";
-
-            break;
-
-        case 2:
-            inside1.file_delete();
-            break;
-
-        case 3:
-            inside1.file_modify();
-            break;
-
-        case 4:
-            inside1.file_display();
-            break;
-
-        case 5:
-            cout << "Exiting the Admin\n";
-            return;
-
-        case 6:
-            cout << "Exiting the program\n";
-            exit(0);
-
-        default:
-            cout << "Wrong Entry, Please Enter Again !!\n";
+            system("cls");
         }
     }
 };
@@ -637,6 +649,7 @@ int main()
     generateidpass generate1;
 
     // Decoration + Mainmenu Part
+    start1:
     dec.decor();
     choice = menu1.menu();
 
@@ -653,7 +666,7 @@ int main()
     else if (choice == 2)
     {
         cout << "Chosen Inside IIITM\n";
-        start:
+    start:
         cin.ignore(); // IMP Don't remove refer void entry article for more info
 
         inside1.entry();
@@ -672,13 +685,13 @@ int main()
                 cout << "Exiting\n";
         }
 
-        cout<<"Want to enter more entry (Yes/No) ?\n";
-        cin>>ans;
+        cout << "Want to enter more entry (Yes/No) ?\n";
+        cin >> ans;
 
-        if(ans == "Yes")
-        goto start;
+        if (ans == "Yes")
+            goto start;
         else
-        cout<<"Exiting\n";
+            cout << "Exiting\n";
     }
 
     else if (choice == 3)
@@ -686,6 +699,8 @@ int main()
         cin.ignore(); // IMP Don't remove refer void entry article for more info
         cout << "Outside IIITM\n";
     }
+
+    goto start1;
 
     return 0;
 }
