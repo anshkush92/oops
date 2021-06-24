@@ -8,7 +8,7 @@ using namespace std;
 
 const ll p = 31;
 const ll mod = 1e9 + 9;
-
+int index = 1;
 // decoration
 // afterchoosing decoration
 // mainmenu
@@ -17,6 +17,13 @@ const ll mod = 1e9 + 9;
 // admin
 // checkdetails
 // generateidpass
+
+const char separator = ' ';
+template <typename T>
+void print(T t, const int &width) // Copied from Stack Overflow for formatting in tabular
+{
+    cout << left << setw(width) << setfill(separator) << t;
+}
 
 string name, age, gender, address, phno, temp, purpose, entime, extime, male = "male", female = "female";
 string username, password;
@@ -44,7 +51,7 @@ public:
     void decor(string str)
     {
         cout << "\t\t\t\t\t\t*******************************************************************\n";
-        cout << "\t\t\t\t\t\t*                          " << str << "                         *\n";
+        cout << "\t\t\t\t\t\t                          " << str << "                            \n";
         cout << "\t\t\t\t\t\t*******************************************************************\n";
     }
 };
@@ -130,8 +137,10 @@ public:
 
         // opens an existing csv file or creates a new file.
         fout.open("record.csv", ios::out | ios::app);
+        
 
-        fout << name << "," << age << "," << gender << "," << address << "," << phno << "," << temp << "," << purpose << "," << entime << "," << extime << "\n";
+        fout <<index << "," << name << "," << age << "," << gender << "," << address << "," << phno << "," << temp << "," << purpose << "," << entime << "," << extime << "\n";
+        index++;
     }
 
     void file_delete()
@@ -219,6 +228,18 @@ public:
         // Open an existing file
         fin.open("record.csv", ios::in);
 
+        print("Name", 15);
+        print("Age", 15);
+        print("Gender", 15);
+        print("Address", 15);
+        print("Phone Number", 15);
+        print("Temperature", 15);
+        print("Purpose", 15);
+        print("Check In", 15);
+        print("Check Out", 15);
+
+        string temp1;
+        string temp;
         string oname;
         string oage;
         string ogender;
@@ -228,11 +249,9 @@ public:
         string opurp;
         string oentm;
         string oextm;
+        string end;
 
-        cout << "Name\t\tAge\t\tGender\t\tAddress\t\tPhone Number\t\tTemperature\t\tPurpose\t\tEntry Time\t\tExit Time\n";
-        cout << "---------------------------------------------------------------------------------------------------------------------------------------------------------------------";
-
-        while (!fin.eof())
+        while (getline(fin, temp1, ','))
         {
             getline(fin, oname, ',');
             getline(fin, oage, ',');
@@ -244,10 +263,23 @@ public:
             getline(fin, oentm, ',');
             getline(fin, oextm, '\n');
 
-            cout << "\n";
-            cout << oname << "\t" << oage << "\t\t" << ogender << "\t\t" << oaddress << "\t" << ophno << "\t" << otemp << "\t\t" << opurp << "\t" << oentm << "\t" << oextm << "\n";
-            cout << "---------------------------------------------------------------------------------------------------------------------------------------------------------------------";
+            cout<<"\n";
+            cout<<"---------------------------------------------------------------------------------------------------------------------------------\n";
+
+            print(oname, 15);
+            print(oage, 15);
+            print(ogender, 15);
+            print(oaddress, 15);
+            print(ophno, 15);
+            print(otemp, 15);
+            print(opurp, 15);
+            print(oentm, 15);
+            print(oextm, 15);
+            
         }
+
+        cout<<"\n";
+            cout<<"---------------------------------------------------------------------------------------------------------------------------------\n";
         fin.close();
     }
 
@@ -456,7 +488,7 @@ public:
 
             switch (ch)
             {
-                case 1:
+            case 1:
                 choice = obj.menu();
                 cin.ignore();
 
@@ -477,31 +509,31 @@ public:
 
                 break;
 
-                case 2:
-                    inside1.file_delete();
-                    break;
+            case 2:
+                inside1.file_delete();
+                break;
 
-                case 3:
-                    inside1.file_modify();
-                    break;
+            case 3:
+                inside1.file_modify();
+                break;
 
-                case 4:
-                    inside1.file_display();
-                    break;
+            case 4:
+                inside1.file_display();
+                break;
 
-                case 5:
-                    cout << "Exiting the Admin\n";
-                    return;
+            case 5:
+                choicech.decor("Exiting Admin");
+                return;
 
-                case 6:
-                    cout << "Exiting the program\n";
-                    exit(0);
+            case 6:
+                choicech.decor("Exiting Program");
+                exit(0);
 
-                default:
-                    cout << "Wrong Entry, Please Enter Again !!\n";
+            default:
+                cout << "Wrong Entry, Please Enter Again !!\n";
             }
 
-            Sleep(2000);
+            Sleep(5000);
 
             system("cls");
         }
@@ -649,8 +681,8 @@ int main()
     generateidpass generate1;
 
     // Decoration + Mainmenu Part
-    start1:
     dec.decor();
+start1:
     choice = menu1.menu();
 
     system("CLS"); // command to clear the screen
@@ -698,6 +730,16 @@ int main()
     {
         cin.ignore(); // IMP Don't remove refer void entry article for more info
         cout << "Outside IIITM\n";
+    }
+
+    cout << "Want to Exit the program ?(Yes/ No)\n";
+    cin >> ans;
+
+    if (ans == "Yes")
+    {
+        afterchoosing exit1;
+        exit1.decor("Exiting");
+        exit(0);
     }
 
     goto start1;
